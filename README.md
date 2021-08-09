@@ -8,8 +8,8 @@ Implemented [this](https://dribbble.com/shots/7062770-Login-Flow) using Jelly
 
 ## Key Features
 
-* Highly customizable JellyAnim rendering for Flutter.
-* Multiple JellyAnim instances
+* Highly customizable Jelly rendering for Flutter.
+* Multiple Jelly instances
 * Overlap Jellies
 * Tween shapes and change colors
 
