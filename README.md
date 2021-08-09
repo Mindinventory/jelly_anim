@@ -1,4 +1,4 @@
-# Jelly
+# Jelly Animation
 
 A widget to render moving blobby objects.
 
@@ -8,18 +8,18 @@ Implemented [this](https://dribbble.com/shots/7062770-Login-Flow) using Jelly
 
 ## Key Features
 
-* Highly customizable Jelly rendering for Flutter.
-* Multiple Jelly instances
-* Overlap Jellys
+* Highly customizable JellyAnim rendering for Flutter.
+* Multiple JellyAnim instances
+* Overlap Jellies
 * Tween shapes and change colors
 
 ## Getting Started
 
-To use this package, add `jelly` as a [dependency in your pubspec.yaml file](https://flutter.io/platform-plugins/).
+To use this package, add `jelly_anim` as a [dependency in your pubspec.yaml file](https://flutter.io/platform-plugins/).
 
     dependencies:
       ...
-      jelly: ^0.0.2
+      jelly_anim: any
 
 
 Now in your Dart code, you can use:
@@ -32,7 +32,7 @@ Now in your Dart code, you can use:
 
 # LICENSE!
 
-Jelly is [MIT-licensed](/LICENSE).
+jelly_anim is [MIT-licensed](/LICENSE).
 
 
 # Let us know!

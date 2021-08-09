@@ -1,6 +1,6 @@
 name: jelly_anim
-description: A new Flutter project.
-version: 0.0.2
+description: A widget for play with jelly animation in your app.
+version: 0.0.5
 homepage: https://github.com/Mindinventory/jelly_anim
 
 environment:

@@ -5,18 +5,18 @@ class RaisedGradientButton extends StatelessWidget {
   final Gradient gradient;
   final double width;
   final double height;
-  final VoidCallback? onPressed;
+  final VoidCallback onPressed;
   final borderRadius = BorderRadius.circular(128.0);
   final List<Color> colors;
 
   RaisedGradientButton({
-    Key? key,
-    required this.child,
-    Gradient? gradient,
+    Key key,
+    this.child,
+    Gradient gradient,
     this.width = double.infinity,
     this.height = 50.0,
     this.onPressed,
-    required this.colors
+    this.colors
   })  : this.gradient = gradient ??
       LinearGradient(
         colors: colors,
