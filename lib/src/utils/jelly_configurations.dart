@@ -3,18 +3,24 @@ import 'dart:ui';
 
 import 'package:angles/angles.dart';
 import 'package:flutter/material.dart';
+import 'package:jelly_anim/jelly_anim.dart';
 import 'package:jelly_anim/src/model/border_point.dart';
 import 'package:jelly_anim/src/utils/common.dart';
 
 class JellyConfiguration {
-  int _steps = 16;
+  int jellyCoordinates = 5;
   double _radiusFactor = 4;
-  double _reductionRadiusFactor = 1; // this param is useful when we want to create multiple jellies on top of each other and to visualise it properly, we need less radius for upper jellies comparatively smaller than the below ones.
+  double reductionRadiusFactor; // this param is useful when we want to create multiple jellies on top of each other and to visualise it properly, we need less radius for upper jellies comparatively smaller than the below ones.
 
-  Paint _fillPaint;
+  Paint fillPaint;
+  List<Color> colorList;
+  int _colorListIndex = 0;
+  final double radius;
+
   Color _firstColor;
   Color _secondColor;
-
+  int jellyPosition;
+  final JellyPosition jellyPositionEnum;
   bool _keepNodes = false;
   Paint nodePaint;
   Color nodePaintColor = getRandomColor();
@@ -42,9 +48,7 @@ class JellyConfiguration {
       ..style = PaintingStyle.fill;
   }
 
-  Paint get fillPaint => _fillPaint;
   bool get keepNodes => _keepNodes;
-
 
   double savedTime = 0.0;
 
@@ -53,10 +57,14 @@ class JellyConfiguration {
   Color updateColor(Color color, double time, int position) {
     if (savedTime > time) {
       _firstColor = _secondColor;
-      if (isSecondColorSaturated) {
-        _secondColor = getLowSaturatedRandomColor(alpha: 0.8);
+      if (colorList == null || colorList.isEmpty) {
+        if (isSecondColorSaturated) {
+          _secondColor = getLowSaturatedRandomColor(alpha: 0.8);
+        } else {
+          _secondColor = getHighSaturatedRandomColor(alpha: 0.8);
+        }
       } else {
-        _secondColor = getHighSaturatedRandomColor(alpha: 0.8);
+        _setSingleColors();
       }
       isSecondColorSaturated = !isSecondColorSaturated;
     }
@@ -66,13 +74,27 @@ class JellyConfiguration {
     return newColor;
   }
 
+  _setSingleColors() {
+    if(jellyPosition>0){
+      _colorListIndex = Random().nextInt(colorList.length);
+    }
+    if (_secondColor == null) {
+      _firstColor = colorList[_colorListIndex];
+    }
+    _colorListIndex++;
+    if (_colorListIndex > colorList.length - 1) {
+      _colorListIndex = 0;
+    }
+    _secondColor = colorList[_colorListIndex];
+  }
+
   void reConfigPaint(Size size, {bool isDraw, int position = 0}) {
     this.size = size;
-    if (_fillPaint == null) {
-      _fillPaint = getDefaultPathPaint();
+    if (fillPaint == null) {
+      fillPaint = getDefaultPathPaint();
     }
 
-    if (_firstColor == null) {
+    if (colorList == null || colorList.isEmpty) {
       if (position.isEven) {
         _firstColor = getHighSaturatedRandomColor(alpha: 0.8);
         _secondColor = getLowSaturatedRandomColor(alpha: 0.8);
@@ -80,35 +102,70 @@ class JellyConfiguration {
         _firstColor = getLowSaturatedRandomColor(alpha: 0.8);
         _secondColor = getHighSaturatedRandomColor(alpha: 0.8);
       }
+    } else {
+      _setSingleColors();
     }
 
     startRadian = Angle.fromDegrees(startAngle).radians;
     endRadian = Angle.fromDegrees(endAngle).radians;
 
-    stepRadian = (endRadian - startRadian) / this._steps;
+    stepRadian = (endRadian - startRadian) / this.jellyCoordinates;
     centerPointOfJelly = Offset(size.width / 2, size.height / 2);
-    if (size.width > size.height) {
+    // if (size.width > size.height) {
       // landscape;
-      radiusOfJelly = (size.height / _radiusFactor) * _reductionRadiusFactor;
-    } else {
-      // portrait;
-      radiusOfJelly = (size.width / _radiusFactor) * _reductionRadiusFactor;
+    if(radius>0){
+      radiusOfJelly = radius;
+    }else{
+      radiusOfJelly = getJellyRadius();
     }
+    // } else {
+      // portrait;
+      // radiusOfJelly = (size.width / _radiusFactor) * reductionRadiusFactor;
+    // }
     minRadius = radiusOfJelly / boundaryRadiusFactor;
     maxRadius = radiusOfJelly * boundaryRadiusFactor;
     createJellyPathPoints();
     createJellyPath();
   }
 
+  double getJellyRadius(){
+    switch(jellyPositionEnum){
+      case JellyPosition.bottomLeft:
+        return (size.height / _radiusFactor) * reductionRadiusFactor/2;
+      case JellyPosition.bottomCenter:
+        return (size.height / _radiusFactor) * reductionRadiusFactor/2;
+      case JellyPosition.bottomRight:
+        return (size.height / _radiusFactor) * reductionRadiusFactor/2;
+      case JellyPosition.topRight:
+        return (size.height / _radiusFactor) * reductionRadiusFactor*9;
+      case JellyPosition.topLeft:
+        return (size.height / _radiusFactor) * reductionRadiusFactor*9;
+      case JellyPosition.topCenter:
+        return (size.height / _radiusFactor) * reductionRadiusFactor*9;
+      case JellyPosition.centerLeft:
+        return (size.height / _radiusFactor) * reductionRadiusFactor;
+      case JellyPosition.centerRight:
+        return (size.height / _radiusFactor) * reductionRadiusFactor;
+      default:
+        return (size.height / _radiusFactor) * reductionRadiusFactor;
+    }
+  }
   JellyConfiguration(this.size,
-      {int position = 0, double reductionRadiusFactor = 1}) {
-    this._reductionRadiusFactor = reductionRadiusFactor;
-    reConfigPaint(size, isDraw: false, position: position);
+      {this.jellyPosition = 0,
+        this.radiusOfJelly=5,
+        this.jellyCoordinates,
+        this.reductionRadiusFactor=1,
+        this.radius=0,
+        this.jellyPositionEnum,
+      this.fillPaint,
+      this.colorList}) {
+    assert(jellyCoordinates>3);
+    reConfigPaint(size, isDraw: false, position: jellyPosition);
   }
 
   void createJellyPathPoints() {
     borderPoints.clear();
-    for (int i = 0; i < _steps; i++) {
+    for (int i = 0; i < jellyCoordinates; i++) {
       double radian = startRadian + (stepRadian * i);
       double randomRadius = getRandomRadius(this);
       double xPoint = centerPointOfJelly.dx + randomRadius * cos(radian);
@@ -119,7 +176,7 @@ class JellyConfiguration {
   }
 
   void updateJellyPathPoints(double time, int position) {
-    _fillPaint.color = updateColor(_fillPaint.color, time, position);
+    fillPaint.color = updateColor(fillPaint.color, time, position);
     for (int i = 0; i < borderPoints.length; i++) {
       BorderPoint point = borderPoints[i];
 
@@ -132,16 +189,18 @@ class JellyConfiguration {
         newRadius = point.radius + ran;
       }
 
-      double xPoint = centerPointOfJelly.dx + (newRadius * cos(point.radianAngle));
-      double yPoint = centerPointOfJelly.dy + (newRadius * sin(point.radianAngle));
+      double xPoint =
+          centerPointOfJelly.dx + (newRadius * cos(point.radianAngle));
+      double yPoint =
+          centerPointOfJelly.dy + (newRadius * sin(point.radianAngle));
       MovementDirection direction;
       if (movementInside) {
         direction = MovementDirection.INWARD;
       } else {
         direction = MovementDirection.OUTWARD;
       }
-      borderPoints[i] =
-          (BorderPoint(xPoint, yPoint, point.radianAngle, newRadius, direction));
+      borderPoints[i] = (BorderPoint(
+          xPoint, yPoint, point.radianAngle, newRadius, direction));
     }
     createJellyPath();
   }

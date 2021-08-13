@@ -1,10 +1,14 @@
+import 'dart:ui';
+
 import 'package:flutter/material.dart';
 import 'package:jelly_anim/src/model/border_point.dart';
 
 import 'jelly_configurations.dart';
 
+/// This class is responsible to render the jelly into the screen according to it's configuration [JellyConfiguration].
 class JellyPaint extends CustomPainter {
-  JellyPaint({@required this.animation, @required this.jellyConfigurations})
+  bool allowOverFlow;
+  JellyPaint({@required this.animation, @required this.jellyConfigurations,this.allowOverFlow})
       : super(repaint: animation);
 
   /// Animation representing what we are painting
@@ -15,6 +19,7 @@ class JellyPaint extends CustomPainter {
     return Offset(borderPoint.dx, borderPoint.dy);
   }
 
+  /// This method will paint the jelly.
   void paintJelly(Canvas canvas, Size size) {
     if (jellyConfigurations == null || jellyConfigurations.isEmpty) {
       return;
@@ -25,17 +30,17 @@ class JellyPaint extends CustomPainter {
       configuration.updateJellyPathPoints(animation.value, j);
 
       // center of our widget
-      if (configuration.keepNodes) {
-        // center point of view.
-        canvas.drawCircle(configuration.centerPointOfJelly,
-            configuration.nodeRadius, configuration.nodePaint);
-
-        // node points of view.
-        for (int i = 0; i < configuration.borderPoints.length; i++) {
-          canvas.drawCircle(getOffset(configuration.borderPoints[i]),
-              configuration.nodeRadius, configuration.nodePaint);
-        }
-      }
+      // if (configuration.keepNodes) {
+      //   // center point of view.
+      //   canvas.drawCircle(configuration.centerPointOfJelly,
+      //       configuration.nodeRadius, configuration.nodePaint);
+      //
+      //   // node points of view.
+      //   for (int i = 0; i < configuration.borderPoints.length; i++) {
+      //     canvas.drawCircle(getOffset(configuration.borderPoints[i]),
+      //         configuration.nodeRadius, configuration.nodePaint);
+      //   }
+      // }
       // and same path, we are creating using Bazier curve.
       canvas.drawPath(configuration.jellyPath, configuration.fillPaint);
     }
@@ -45,6 +50,10 @@ class JellyPaint extends CustomPainter {
 
   @override
   void paint(Canvas canvas, Size size) {
+    if(!allowOverFlow){
+      var dummyRect = Rect.fromLTRB(0.0, 0.0, size.width, size.height);
+      canvas.clipRect(dummyRect, clipOp: ClipOp.intersect);
+    }
     paintJelly(canvas, size);
   }
 
