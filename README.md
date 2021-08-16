@@ -13,7 +13,7 @@ Also, implemented [this](https://dribbble.com/shots/7062770-Login-Flow) using Je
 * Overlap Jellies
 * Tween shapes and change colors
 * Set jelly viewport with custom size
-* Set custom redius of jelly
+* Set custom radius of jelly
 * Add custom style of jelly with the help of `paint` param of `JellyAnim` class
 ## Getting Started
 
