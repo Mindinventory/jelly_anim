@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:jelly_anim/jelly_anim.dart';
+import 'package:test_package/doll_ui/doll_screen.dart';
 
 import 'utils/raised_gradient_button.dart';
 
@@ -34,6 +35,18 @@ class _MyHomePage extends State<MyHomePage> {
   int jellyCount = 1;
   Size size = Size(200, 200);
 
+  @override
+  void initState() {
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+     Future.delayed(Duration(seconds: 1),(){
+       Navigator.pushReplacement(
+         context,
+         MaterialPageRoute(builder: (context) => DollScreen()),
+       );
+     });
+    });
+    super.initState();
+  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
