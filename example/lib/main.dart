@@ -46,9 +46,10 @@ class _MyHomePage extends State<MyHomePage> {
                 child: JellyAnim(
                   jellyCount: jellyCount,
                   radius: 20,
-                  viewPortSize: Size(700, 60),
+                  viewPortSize: Size(200, 600),
                   jellyCoordinates: 10,
                   allowOverFlow: true,
+                  duration: Duration(milliseconds: 200),
                   jellyPosition: JellyPosition.bottomCenter,
                 ),
               ),

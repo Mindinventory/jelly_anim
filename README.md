@@ -4,7 +4,7 @@ A widget to render moving blobby objects.
 
 
 <br>![N|Solid](jelly_anim.gif)</br>
-Implemented [this](https://dribbble.com/shots/7062770-Login-Flow) using Jelly
+Also, implemented [this](https://dribbble.com/shots/7062770-Login-Flow) using Jelly
 
 ## Key Features
 
@@ -12,7 +12,9 @@ Implemented [this](https://dribbble.com/shots/7062770-Login-Flow) using Jelly
 * Multiple JellyAnim instances
 * Overlap Jellies
 * Tween shapes and change colors
-
+* Set jelly viewport with custom size
+* Set custom redius of jelly
+* Add custom style of jelly with the help of `paint` param of `JellyAnim` class
 ## Getting Started
 
 To use this package, add `jelly_anim` as a [dependency in your pubspec.yaml file](https://flutter.io/platform-plugins/).
@@ -28,15 +30,15 @@ Now in your Dart code, you can use:
 
 ## Usage
 
-     JellyAnim(
-                 jellyCount: jellyCount,
-                 radius: 120,
-                 viewPortSize: Size(700, 400),
-                 jellyCoordinates: 10,
-                 allowOverFlow: true,
-                 jellyPosition: JellyPosition.centerLeft,
-               );
-# Constructor Parameters
+     JellyAnim(jellyCount: jellyCount,
+                radius: 20,
+                viewPortSize: Size(200, 600),
+                jellyCoordinates: 10,
+                allowOverFlow: true,
+                duration: Duration(milliseconds: 200),
+                jellyPosition: JellyPosition.bottomCenter);
+
+## Constructor Parameters
 
 `jellyCount` defines that how many jelly we want to overlap.
 
@@ -59,11 +61,11 @@ NOTE: default position of jelly is center.
 
 `allowOverFlow` flag will give us a provision to render animation outside the viewport.
 
-# LICENSE!
+## LICENSE!
 
 jelly_anim is [MIT-licensed](/LICENSE).
 
 
-# Let us know!
+## Let us know!
 
 We’d be really happy if you send us links to your projects where you use our component. Just send an email to sales@mindinventory.com And do let us know if you have any questions or suggestion regarding our work.
