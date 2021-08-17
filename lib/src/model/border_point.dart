@@ -8,4 +8,4 @@ class BorderPoint {
   BorderPoint(this.dx, this.dy, this.radianAngle, this.radius, this.direction);
 }
 
-enum MovementDirection {INWARD, OUTWARD}
+enum MovementDirection { INWARD, OUTWARD }

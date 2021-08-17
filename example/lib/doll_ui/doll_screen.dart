@@ -16,8 +16,16 @@ class _DollScreenState extends State<DollScreen> {
       backgroundColor: Color.fromRGBO(40, 40, 40, 1),
       body: Stack(
         children: [
-          Align(alignment:Alignment.center,child: JellyAnim(radius: 200,jellyCoordinates: 6,/*colors: [Colors.yellow],*/)),
-          Align(alignment:Alignment.center,child: Image.asset("asset/doll.png")),
+          Align(
+              alignment: Alignment.center,
+              child: JellyAnim(
+                jellyCount: 2,
+                radius: 200,
+                colors: [Colors.yellow],
+              )),
+          Align(
+              alignment: Alignment.center,
+              child: Image.asset("asset/doll.png")),
         ],
       ),
     ));

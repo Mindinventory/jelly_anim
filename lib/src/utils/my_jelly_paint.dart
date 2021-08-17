@@ -7,13 +7,17 @@ import 'jelly_configurations.dart';
 
 /// This class is responsible to render the jelly into the screen according to it's configuration [JellyConfiguration].
 class JellyPaint extends CustomPainter {
-  bool allowOverFlow;
-  JellyPaint({@required this.animation, @required this.jellyConfigurations,this.allowOverFlow})
+  bool allowOverFlow = false;
+
+  JellyPaint(
+      {required this.animation,
+      required this.jellyConfigurations,
+      required this.allowOverFlow})
       : super(repaint: animation);
 
   /// Animation representing what we are painting
   final Animation<double> animation;
-  List<JellyConfiguration> jellyConfigurations = List();
+  List<JellyConfiguration> jellyConfigurations = [];
 
   Offset getOffset(BorderPoint borderPoint) {
     return Offset(borderPoint.dx, borderPoint.dy);
@@ -42,7 +46,7 @@ class JellyPaint extends CustomPainter {
       //   }
       // }
       // and same path, we are creating using Bazier curve.
-      canvas.drawPath(configuration.jellyPath, configuration.fillPaint);
+      canvas.drawPath(configuration.jellyPath, configuration.fillPaint!);
     }
     canvas.save();
     canvas.restore();
@@ -50,7 +54,7 @@ class JellyPaint extends CustomPainter {
 
   @override
   void paint(Canvas canvas, Size size) {
-    if(!allowOverFlow){
+    if (!allowOverFlow) {
       var dummyRect = Rect.fromLTRB(0.0, 0.0, size.width, size.height);
       canvas.clipRect(dummyRect, clipOp: ClipOp.intersect);
     }
