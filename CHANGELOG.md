@@ -1,4 +1,4 @@
-# [0.0.60.0.6-nullsafety] - Added below functionalities & bug fixing
+# [0.0.6-nullsafety] - Added below functionalities & bug fixing
 * Set jelly viewport with custom size
 * Set custom radius of jelly
 * Add custom style of jelly with the help of paint param of JellyAnim class
