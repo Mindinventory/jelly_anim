@@ -2,7 +2,7 @@
 
 A widget to render moving blobby objects.
 
-![jelly_anim](https://github.com/Mindinventory/jelly_anim/blob/jelly_anim_version_0.0.7/meditation_jelly.gif)
+![jelly_anim](https://github.com/Mindinventory/jelly_anim/blob/jelly_anim_version_0.0.8/meditation_jelly.gif)
 
 Also, implemented [this](https://dribbble.com/shots/7062770-Login-Flow) using Jelly
 
