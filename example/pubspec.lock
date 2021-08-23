@@ -143,7 +143,7 @@ packages:
       path: ".."
       relative: true
     source: path
-    version: "0.0.7"
+    version: "0.0.8"
   matcher:
     dependency: transitive
     description:
@@ -249,13 +249,6 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "4.2.3"
-  random_color:
-    dependency: transitive
-    description:
-      name: random_color
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "1.0.6-nullsafety"
   sky_engine:
     dependency: transitive
     description: flutter

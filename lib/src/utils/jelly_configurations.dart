@@ -6,7 +6,6 @@ import 'package:flutter/material.dart';
 import 'package:jelly_anim/jelly_anim.dart';
 import 'package:jelly_anim/src/model/border_point.dart';
 import 'package:jelly_anim/src/utils/common.dart';
-import 'package:random_color/random_color.dart';
 
 class JellyConfiguration {
   int jellyCoordinates = 5;

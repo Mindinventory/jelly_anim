@@ -1,7 +1,8 @@
 import 'dart:math';
 
 import 'package:flutter/material.dart';
-import 'package:random_color/random_color.dart';
+import 'package:jelly_anim/random_color/color_info.dart';
+import 'package:jelly_anim/random_color/random_color.dart';
 
 import 'jelly_configurations.dart';
 
