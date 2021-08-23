@@ -1,6 +1,6 @@
 name: jelly_anim
 description: This package contains jelly animation. Users can dynamically modify the jelly & viewport size, jelly coordinates, overflow flag and also customize it as per user requirements.
-version: 0.0.7
+version: 0.0.8
 homepage: https://github.com/Mindinventory/jelly_anim
 
 environment:

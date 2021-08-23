@@ -1,4 +1,4 @@
-# [0.0.7] - Final Release
+# [0.0.8] - Final Release
 * create sample example screen of how we can use jelly in our project.
 * update the example.
 * minor bug fixing & update readme.md document.
